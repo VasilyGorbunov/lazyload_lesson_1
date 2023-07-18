@@ -17,6 +17,16 @@ class UserProfile extends StatelessWidget {
     MenuRowData(Icons.date_range_outlined, 'Данные и память'),
     MenuRowData(Icons.brush_outlined, 'Оформление'),
     MenuRowData(Icons.language_outlined, 'Язык'),
+    MenuRowData(Icons.sticky_note_2, 'Стикеры'),
+  ];
+
+  List<MenuRowData> thirdMenuRows = [
+    MenuRowData(Icons.lock_clock, 'Apple Watch'),
+  ];
+
+  List<MenuRowData> fourthMenuRows = [
+    MenuRowData(Icons.help, 'Помощь'),
+    MenuRowData(Icons.question_answer, 'Вопросы о Telegram'),
   ];
 
   @override
@@ -28,13 +38,25 @@ class UserProfile extends StatelessWidget {
       ),
       body: SizedBox(
         width: double.infinity,
-        child: Column(
+        child: ListView(
           children: [
             const _UserInfo(),
             const SizedBox(height: 30),
-            _MenuWidget(menuRows: firstMenuRows,),
+            _MenuWidget(
+              menuRows: firstMenuRows,
+            ),
             const SizedBox(height: 30),
-            _MenuWidget(menuRows: secondMenuRows,),
+            _MenuWidget(
+              menuRows: secondMenuRows,
+            ),
+            const SizedBox(height: 30),
+            _MenuWidget(
+              menuRows: thirdMenuRows,
+            ),
+            const SizedBox(height: 30),
+            _MenuWidget(
+              menuRows: fourthMenuRows,
+            ),
           ],
         ),
       ),
@@ -68,7 +90,8 @@ class MenuRowData {
 
 class _MenuWidgetRow extends StatelessWidget {
   const _MenuWidgetRow({
-    super.key, required this.data,
+    super.key,
+    required this.data,
   });
 
   final MenuRowData data;
@@ -98,22 +121,35 @@ class _UserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      color: Colors.white,
-      child: const Column(
-        children: [
-          SizedBox(height: 30),
-          _Avatar(),
-          SizedBox(height: 30),
-          _UserNameWidget(),
-          SizedBox(height: 10),
-          _UserPhoneWidget(),
-          SizedBox(height: 10),
-          _UserNicknameWidget(),
-        ],
+    return Stack(children: [
+      Container(
+        width: double.infinity,
+        color: Colors.white,
+        child: const Column(
+          children: [
+            SizedBox(height: 30),
+            _Avatar(),
+            SizedBox(height: 30),
+            _UserNameWidget(),
+            SizedBox(height: 10),
+            _UserPhoneWidget(),
+            SizedBox(height: 10),
+            _UserNicknameWidget(),
+          ],
+        ),
       ),
-    );
+      const Positioned(
+        top: 25,
+        right: 25,
+        child: Text(
+          'Изм.',
+          style: TextStyle(
+            color: Colors.blue,
+            fontSize: 17,
+          ),
+        ),
+      ),
+    ]);
   }
 }
 
